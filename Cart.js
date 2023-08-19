@@ -134,7 +134,7 @@ if(count>0){
 
 function token_click() {
     if(count==0){
-        alert("Not enough tokens");
+        alert("Not enough token. All the available tokens were used.");
 
     }
     if (count > 0) {
