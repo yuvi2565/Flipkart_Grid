@@ -1,0 +1,31 @@
+/* for footer */
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+.list{
+    list-style: none;  /*removes dots in fornt of lists*/
+}
+.container{
+    max-width: 1200px;
+    margin: auto;
+    color: white;
+}
+.footer{
+    padding: 80px;
+    background-color: pink;
+}
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.footer-col{
+    width: 25%;   
+    padding: 0 15px;
+}
+.footer-col ul li a{
+    font-size: 16px;
+    text-transform: capitalize;
+    color: white;
+}
