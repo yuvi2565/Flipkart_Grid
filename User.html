@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+    />
+    <link rel="stylesheet" href="./User.css" />
+  </head>
+  <body>
+    <section id="header">
+      <button
+        class="use-token"
+        style="background-color: pink"
+        id="cbtn"
+        onclick="connect()"
+      >
+        Connect your Wallet
+      </button>
+      <a href="1home.html"><img src="logo.jpeg" class="logo" width="90px" /></a>
+
+      <div>
+        <ul id="navbar">
+          <li><a href="1home.html">Home</a></li>
+          <li><a href="2shop.html">Shop</a></li>
+          <li><a href="3blog.html">Blog</a></li>
+          <li>
+            <a href="User.html">User</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <span
+      class="cart-item cart-header cart-column"
+      style="padding: 30px; font-size: 30px"
+      >PURCHASES:</span
+    >
+    <div class="cart-row" style="display: flex; justify-content: space-around">
+      <span class="cart-item cart-header cart-column">ITEM NAME</span>
+      <span class="cart-item cart-header cart-column">Price</span>
+      <span class="cart-price cart-header cart-column">ID</span>
+    </div>
+    <div
+      class="purchases"
+      style="display: flex; justify-content: space-around"
+    ></div>
+
+    <script>
+      async function connect() {
+        console.log("All assets are loaded");
+        contractABI = [
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "",
+                type: "string",
+              },
+            ],
+            name: "VoucherExpiry",
+            outputs: [
+              {
+                internalType: "uint256",
+                name: "startDate",
+                type: "uint256",
+              },
+              {
+                internalType: "uint256",
+                name: "endDate",
+                type: "uint256",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [],
+            name: "avlTokens",
+            outputs: [
+              {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "_from",
+                type: "address",
+              },
+              {
+                internalType: "address payable",
+                name: "_to",
+                type: "address",
+              },
+              {
+                internalType: "uint256",
+                name: "_tokenApplied",
+                type: "uint256",
+              },
+              {
+                internalType: "string",
+                name: "imgURL",
+                type: "string",
+              },
+              {
+                internalType: "string",
+                name: "name",
+                type: "string",
+              },
+              {
+                internalType: "uint256",
+                name: "price",
+                type: "uint256",
+              },
+            ],
+            name: "chackOut",
+            outputs: [],
+            stateMutability: "payable",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "str",
+                type: "string",
+              },
+              {
+                internalType: "address payable",
+                name: "_to",
+                type: "address",
+              },
+            ],
+            name: "checkOutUsingVoucher",
+            outputs: [],
+            stateMutability: "payable",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "_code",
+                type: "string",
+              },
+              {
+                internalType: "uint256",
+                name: "_weeks",
+                type: "uint256",
+              },
+            ],
+            name: "createVoucher",
+            outputs: [],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "",
+                type: "string",
+              },
+            ],
+            name: "isVoucher",
+            outputs: [
+              {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "uint256",
+                name: "a",
+                type: "uint256",
+              },
+              {
+                internalType: "uint256",
+                name: "b",
+                type: "uint256",
+              },
+            ],
+            name: "min",
+            outputs: [
+              {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+              },
+            ],
+            stateMutability: "pure",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "",
+                type: "address",
+              },
+              {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+              },
+            ],
+            name: "user_to_product",
+            outputs: [
+              {
+                internalType: "string",
+                name: "imgURL",
+                type: "string",
+              },
+              {
+                internalType: "string",
+                name: "name",
+                type: "string",
+              },
+              {
+                internalType: "uint256",
+                name: "id",
+                type: "uint256",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "",
+                type: "address",
+              },
+            ],
+            name: "user_to_token",
+            outputs: [
+              {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+        ];
+        contractAddress = "0x3E12DEF3240764363b3B8285C7aA990d7cf77Eb4";
+        try {
+          web3 = new Web3(window.ethereum); // initialize Web3
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const account = accounts[0];
+          console.log(account);
+          const contract = new web3.eth.Contract(contractABI, contractAddress);
+          Contract = contract;
+          console.log(contract);
+          var purchases = await Contract.methods
+            .user_to_product(account, 0)
+            .call();
+          console.log(purchases);
+          // var div = document.getElementsByClassName("purchases");
+          // div.innerHTML += <div></div>;
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    </script>
+  </body>
+</html>
